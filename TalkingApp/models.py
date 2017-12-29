@@ -3,31 +3,29 @@
 from __future__ import unicode_literals
 from django.db import models
 from django.utils import timezone
+from django.core.validators import RegexValidator
 
-class Loggin(models.Model):
-    Quick_Id = models.IntegerField(default=0)
-    # date = models.DateTimeField(default=datetime.now, blank=True)
-    date_generated = models.DateTimeField(default=timezone.now, editable=False,blank=True)
+class User(models.Model):
+    Quick_Id = models.CharField(max_length=30,primary_key=True)
+    Name = models.CharField(max_length=40, blank=True)
+    phone_regex = RegexValidator(regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
+    Phone = models.CharField(validators=[phone_regex], max_length=17, blank=True) # validators should be a list
+    # Phone=models.PhoneNumberField(unique=True,blank=True,null=True)
+    # email = models.EmailField(blank=True, verbose_name='e-mail')
     def __repr__(self):
-    	return (self.date_generated)
+        return (self.Name,self.Phone)
+        # return u'%s %s' % (self.Quick_ID, self.Name,self.Phone)
+    def __str__(self):
+        return(self.Quick_Id)
+
+class UserLogging(models.Model):
+    Quick_Id = models.ForeignKey(User, on_delete=models.CASCADE)
+    # date = models.DateTimeField(default=datetime.now, blank=True)
+    last_Logging_Time = models.DateTimeField(default=timezone.now, editable=False,blank=True)
+    def __repr__(self):
+    	return (self.last_Logging_Time)
     def __str__(self):
     	return str(self.Quick_Id)
     	   			   	
 
-#     question = models.CharField(max_length=200)
-#     pub_date = models.DateTimeField('date published')
-
-#     # HERE 
-#     def __str__(self):
-#         return self.question
-
-
-# class Choice(models.Model):
-#     Question = models.ForeignKey(Question,on_delete=models.CASCADE)
-#     choice_text = models.CharField(max_length=200)
-#     votes = models.IntegerField(default=0)
-
-#     # AND HERE
-#     def __str__(self):
-#     	return self.choice_text
-
+                
