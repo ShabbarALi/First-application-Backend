@@ -3,9 +3,14 @@ from __future__ import unicode_literals
 
 from django.contrib import admin
 
+
 # Register your models here.
 
-from TalkingApp.models import Question,Choice
+from TalkingApp.models import Loggin
+class LogginAdmin(admin.ModelAdmin):
 
-admin.site.register(Question)
-admin.site.register(Choice)
+    readonly_fields = ('date_generated',)
+
+admin.site.register(Loggin,LogginAdmin)
+
+
