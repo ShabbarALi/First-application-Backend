@@ -2,7 +2,8 @@
 
 from __future__ import unicode_literals
 from django.db import models
-from django.utils import timezone
+# from django.utils import timezone
+from datetime import datetime
 from django.core.validators import RegexValidator
 
 class User(models.Model):
@@ -21,7 +22,10 @@ class User(models.Model):
 class UserLogging(models.Model):
     Quick_Id = models.ForeignKey(User, on_delete=models.CASCADE)
     # date = models.DateTimeField(default=datetime.now, blank=True)
-    last_Logging_Time = models.DateTimeField(default=timezone.now, editable=False,blank=True)
+    last_Logging_Time = models.DateTimeField(editable=False,blank=True)
+    def __init__(self, *args, **kwargs):
+        super(UserLogging, self).__init__(*args, **kwargs)
+        self.last_Logging_Time = datetime.now()
     def __repr__(self):
     	return (self.last_Logging_Time)
     def __str__(self):
