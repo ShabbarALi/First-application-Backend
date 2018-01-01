@@ -14,11 +14,28 @@
 #     path('', views.index, name='index'),
 # ]
 
-from django.conf.urls import url
+from django.conf.urls import include, url
+# from rest_framework import routers
+from TalkingApp import views
+from rest_framework.urlpatterns import format_suffix_patterns
 
-from . import views
+# router = routers.DefaultRouter()
+# # router.register(r'users', views.UserViewSet)
+# router.register(r'userLogging', views.UserLoggingViewSet)
+# router.register(r'myObjects', views.UserLoggingViewSet, base_name='UserLoggingViewSet')
+
+# urlpatterns = [
+#     # url(r'^$', views.index, name='index'),
+#     # url(r'^getUserName/$', views.getUserName, name='getUserName'),
+#     url(r'^', include(router.urls)),
+#     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+# ]
+
+
+
 
 urlpatterns = [
-    url(r'^$', views.index, name='index'),
-    url(r'^getUserName/$', views.getUserName, name='getUserName'),
+    url(r'^userLogging/$', views.UserLogging_list),
+    url(r'^getOnlineList/$', views.Get_Online_list),
 ]
+urlpatterns = format_suffix_patterns(urlpatterns)

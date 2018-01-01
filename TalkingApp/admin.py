@@ -5,7 +5,8 @@ from datetime import datetime
 
 # Register your models here.
 
-from TalkingApp.models import UserLogging,User
+# from TalkingApp.models import UserLogging,User
+from TalkingApp.models import UserLogging
 class UserLoggingAdmin(admin.ModelAdmin):
     readonly_fields = ('last_Logging_Time',)
     def save_model(self, request, obj, form, change):
@@ -14,6 +15,6 @@ class UserLoggingAdmin(admin.ModelAdmin):
         obj.last_Logging_Time = datetime.now()
         obj.save()
 
-admin.site.register(User)
+# admin.site.register(User)
 admin.site.register(UserLogging,UserLoggingAdmin)
 
