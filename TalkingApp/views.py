@@ -63,7 +63,7 @@ def Get_Online_list(request):
         currentMillis = unix_time_millis(currentDate) 
         for x in UserLoggings:
         	millisec = unix_time_millis(x.last_Logging_Time)
-        	if(currentMillis-millisec<=360000):
+        	if(currentMillis-millisec<=40000):
         		finalList.append(x)
         serializer = UserLoggingSerializer(finalList, many=True)
         return Response(serializer.data)
