@@ -55,7 +55,7 @@ def Get_Online_list(request):
     List all code snippets, or create a new snippet.
     """
     if request.method == 'GET':
-        UserLoggings = UserLogging.objects.all()
+        UserLoggings = UserLogging.objects.filter(Talker_Status='online')
         currentDate = datetime.now()
         finalList = []
 
@@ -63,7 +63,7 @@ def Get_Online_list(request):
         currentMillis = unix_time_millis(currentDate) 
         for x in UserLoggings:
         	millisec = unix_time_millis(x.last_Logging_Time)
-        	if(currentMillis-millisec<=360000 and x.Talker_Status=='online'):
+        	if(currentMillis-millisec<=360000):
         		finalList.append(x)
         serializer = UserLoggingSerializer(finalList, many=True)
         return Response(serializer.data)
@@ -81,8 +81,7 @@ def User_pussh(request):
 		try:
 			loggingObj = UserLogging.objects.get(Talker_Id=request.data['Talker_Id'])
 			loggingObj.last_Logging_Time = datetime.now()
-			loggingObj.Talker_Status='online'
-			pass
+			loggingObj.Talker_Status = request.data['Talker_Status']
 		except Exception as e:
 			loggingObj = UserLogging(Talker_Id=request.data['Talker_Id'],last_Logging_Time=datetime.now(),Talker_Status='online')
 		finally:
