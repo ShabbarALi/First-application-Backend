@@ -63,7 +63,7 @@ def Get_Online_list(request):
         currentMillis = unix_time_millis(currentDate) 
         for x in UserLoggings:
         	millisec = unix_time_millis(x.last_Logging_Time)
-        	if(currentMillis-millisec<=360000):
+        	if(currentMillis-millisec<=360000 and x.Talker_Status=='online'):
         		finalList.append(x)
         serializer = UserLoggingSerializer(finalList, many=True)
         return Response(serializer.data)
@@ -72,8 +72,23 @@ def Get_Online_list(request):
 def unix_time_millis(dt):
 	epoch = datetime.utcfromtimestamp(0).replace(tzinfo=pytz.UTC)
 	return (dt.replace(tzinfo=pytz.UTC) - epoch).total_seconds() * 1000.0
-# Add new user through Quick_ID API
-'''
+# Add new user through Talker_Id API and update the old the user.
+
 @api_view(['POST'])
-def Post  	
-'''
+def User_pussh(request):
+	if request.method == 'POST':
+		loggingObj = {}
+		try:
+			loggingObj = UserLogging.objects.get(Talker_Id=request.data['Talker_Id'])
+			loggingObj.last_Logging_Time = datetime.now()
+			loggingObj.Talker_Status='online'
+			pass
+		except Exception as e:
+			loggingObj = UserLogging(Talker_Id=request.data['Talker_Id'],last_Logging_Time=datetime.now(),Talker_Status='online')
+		finally:
+			loggingObj.save()
+			serializer = UserLoggingSerializer(loggingObj,many=False)
+		 	return Response(serializer.data)
+ 
+				
+

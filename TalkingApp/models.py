@@ -34,12 +34,13 @@ from datetime import datetime
     # 	return str(self.Talker_Id)
 class UserLogging(models.Model):
     Talker_Id = models.CharField(max_length=30,primary_key=True)
+    Talker_Status=models.CharField(max_length=30, blank=True)
         # date = models.DateTimeField(default=datetime.now, blank=True)
     last_Logging_Time = models.DateTimeField(editable=False,blank=True)
     def __init__(self, * args, **kwargs):
         super(UserLogging, self).__init__(*args, **kwargs)
         # self.last_Logging_Time = datetime.now()   
-    # def __repr__(self):
-    #     return (self.last_Logging_Time)
+    def __repr__(self):
+        return (self.last_Logging_Time,self.Talker_Status)
     def __str__(self):
         return str(self.Talker_Id)
