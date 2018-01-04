@@ -37,7 +37,7 @@ from TalkingApp.models import UserLogging
 from TalkingApp.serializers import UserLoggingSerializer
 from datetime import datetime
 import pytz
-
+# import random 
 
 @api_view(['GET'])
 def UserLogging_list(request):
@@ -63,8 +63,14 @@ def Get_Online_list(request):
         currentMillis = unix_time_millis(currentDate) 
         for x in UserLoggings:
         	millisec = unix_time_millis(x.last_Logging_Time)
-        	if(currentMillis-millisec<=40000):
+        	if currentMillis-millisec<=40000 and x.Talker_Served:
         		finalList.append(x)
+        		x.Talker_Served = False
+        		x.save()
+        		break
+        # secure_random = random.SystemRandom()
+        # resultant=secure_random.choice(finalList)
+
         serializer = UserLoggingSerializer(finalList, many=True)
         return Response(serializer.data)
 
@@ -82,8 +88,12 @@ def User_pussh(request):
 			loggingObj = UserLogging.objects.get(Talker_Id=request.data['Talker_Id'])
 			loggingObj.last_Logging_Time = datetime.now()
 			loggingObj.Talker_Status = request.data['Talker_Status']
+			if request.data['Talker_Status'] == 'online':
+				loggingObj.Talker_Served = True
+			else:
+				loggingObj.Talker_Served = False
 		except Exception as e:
-			loggingObj = UserLogging(Talker_Id=request.data['Talker_Id'],last_Logging_Time=datetime.now(),Talker_Status='online')
+			loggingObj = UserLogging(Talker_Id=request.data['Talker_Id'],last_Logging_Time=datetime.now(),Talker_Status='online',Talker_Served=True)
 		finally:
 			loggingObj.save()
 			serializer = UserLoggingSerializer(loggingObj,many=False)

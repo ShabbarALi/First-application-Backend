@@ -35,6 +35,7 @@ from datetime import datetime
 class UserLogging(models.Model):
     Talker_Id = models.CharField(max_length=30,primary_key=True)
     Talker_Status=models.CharField(max_length=30, blank=True)
+    Talker_Served=models.BooleanField(default=True)
         # date = models.DateTimeField(default=datetime.now, blank=True)
     last_Logging_Time = models.DateTimeField(editable=False,blank=True)
     def __init__(self, * args, **kwargs):

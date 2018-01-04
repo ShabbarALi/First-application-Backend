@@ -11,5 +11,4 @@ from models import UserLogging
 class UserLoggingSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserLogging
-        fields = ('Talker_Id', 'last_Logging_Time','Talker_Status')
-        
+        fields = ('Talker_Id', 'last_Logging_Time','Talker_Status','Talker_Served')
