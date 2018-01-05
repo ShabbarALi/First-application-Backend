@@ -33,10 +33,11 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 
 
-
+ 
 urlpatterns = [
     url(r'^userLogging/$', views.UserLogging_list),
     url(r'^getOnlineList/$', views.Get_Online_list),
     url(r'^user_new/$', views.User_pussh),
+    url(r'^Get_female/$', views.Get_female),
 ]
 urlpatterns = format_suffix_patterns(urlpatterns)

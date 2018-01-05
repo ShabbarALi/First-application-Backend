@@ -72,7 +72,12 @@ def Get_Online_list(request):
         # resultant=secure_random.choice(finalList)
 
         serializer = UserLoggingSerializer(finalList, many=True)
-        return Response(serializer.data)
+        responseDict = {}
+        responseDict['responseCode'] = 200
+        responseDict['responseMessage'] = 'Successfully Sent'
+        responseDict['data'] = serializer.data
+        
+        return Response(responseDict)
 
 
 def unix_time_millis(dt):
@@ -95,9 +100,41 @@ def User_pussh(request):
 		except Exception as e:
 			loggingObj = UserLogging(Talker_Id=request.data['Talker_Id'],last_Logging_Time=datetime.now(),Talker_Status='online',Talker_Served=True)
 		finally:
+			loggingObj.Gender=request.data['Gender']
 			loggingObj.save()
 			serializer = UserLoggingSerializer(loggingObj,many=False)
-		 	return Response(serializer.data)
+			responseDict = {}
+			responseDict['responseCode'] = 200
+			responseDict['responseMessage'] = 'Successfully Sent'
+			responseDict['data'] = serializer.data
+		 	return Response(responseDict)
  
-				
+# find bachi
 
+@api_view(['GET'])
+def Get_female(request):
+	if request.method == 'GET':
+		UserLoggings = UserLogging.objects.filter(Talker_Status='online',Gender='female',Talker_Served=True)
+		currentDate = datetime.now()
+		finalList = []
+
+        # currentMillis = currentDate.timestamp()*1000
+        currentMillis = unix_time_millis(currentDate) 
+        for x in UserLoggings:
+        	millisec = unix_time_millis(x.last_Logging_Time)
+        	if currentMillis-millisec<=40000:
+        		finalList.append(x)
+        		x.Talker_Served = False
+        		x.save()
+        		break
+        # secure_random = random.SystemRandom()
+        # resultant=secure_random.choice(finalList)
+
+        serializer = UserLoggingSerializer(finalList, many=True)
+        responseDict = {}
+        responseDict['responseCode'] = 200
+        responseDict['responseMessage'] = 'Successfully Sent'
+        responseDict['data'] = serializer.data
+        
+        return Response(responseDict)
+	
