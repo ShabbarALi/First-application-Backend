@@ -27,7 +27,7 @@ SECRET_KEY = '&*pjl+yv29!qtb76nsce(z82qpwk#4uol)d)5^#t_t@fvn@s%g'
 # ALLOWED_HOSTS = []
 
 DEBUG = False
-ALLOWED_HOSTS = ['shabbarali.pythonanywhere.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'mysql',
+    'mysql'
 ]
 
 MIDDLEWARE = [
@@ -110,7 +110,19 @@ DATABASES = {
         'HOST': 'ShabbarALi.pythonanywhere.com',
     }
 }
+
 # Password validation
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'talkerdb',
+#         'USER':'root',
+#         'PASSORD':'',
+#         'HOST':'localhost',
+#         'PORT':'3306',
+#     }
+# }
+# # Password validation
 # https://docs.djangoproject.com/en/1.11/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
