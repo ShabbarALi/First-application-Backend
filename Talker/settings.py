@@ -105,7 +105,7 @@ DATABASES = {
     'default': {
 
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ShabbarALi$talkerdb',
+        'NAME': 'ShabbarALi$database_talkerdb',
         'USER': 'ShabbarALi',
         'PASSWORD': 'rootuser',
         'HOST': 'ShabbarALi.mysql.pythonanywhere-services.com',
