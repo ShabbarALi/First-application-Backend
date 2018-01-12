@@ -108,7 +108,7 @@ DATABASES = {
         'NAME': 'ShabbarALi$talkerdb',
         'USER': 'ShabbarALi',
         'PASSWORD': 'rootuser',
-        'HOST': 'mysql.server',
+        'HOST': 'ShabbarALi.mysql.pythonanywhere-services.com',
         'OPTIONS': {
             'sql_mode': 'traditional',
         }
