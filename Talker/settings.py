@@ -104,12 +104,16 @@ WSGI_APPLICATION = 'Talker.wsgi.application'
 #MySQL database on pythonanywhere
 DATABASES = {
     'default': {
+
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'Muneebhasan$talkingdb',
         'USER': 'Muneebhasan',
         'PASSWORD': 'rootuser',
         'HOST': 'Muneebhasan.mysql.pythonanywhere-services.com',
         # 'PORT' : '3306',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        }
     }
 }
 
