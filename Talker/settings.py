@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'mysql'
     
 ]
 
@@ -104,11 +105,11 @@ WSGI_APPLICATION = 'Talker.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Muneebhasan$default',
+        'NAME': 'Muneebhasan$talkingdb',
         'USER': 'Muneebhasan',
         'PASSWORD': 'rootuser',
         'HOST': 'Muneebhasan.mysql.pythonanywhere-services.com',
-        'PORT' : '3306',
+        # 'PORT' : '3306',
     }
 }
 
